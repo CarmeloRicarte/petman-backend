@@ -24,10 +24,11 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Configure Middleware
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 // Rutas
-app.use('/api/reviews', require('./routes/reviews'));
+app.use('/api/reviews', require('./routes/corpo-page/reviews'));
+app.use('/api/contact', require('./routes/corpo-page/contact'));
 
 
 // cualquier otra ruta
