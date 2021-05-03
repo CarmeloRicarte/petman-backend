@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 
-// const { dbConnection } = require('./database/config');
+const { dbConnection } = require('./database/config');
 
 // Crear el servidor de express
 const app = express();
@@ -18,7 +18,7 @@ app.use(cors({
 app.use(express.json());
 
 // Base de datos
-//dbConnection();
+dbConnection();
 
 // Directorio público
 app.use(express.static('public'));
