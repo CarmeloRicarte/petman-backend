@@ -26,15 +26,18 @@ app.use(express.static('public'));
 // Configure Middleware
 app.use(express.urlencoded({ extended: true }));
 
-// Rutas
+// Rutas Corporative Page
 app.use('/api/reviews', require('./routes/corpo-page/reviews'));
 app.use('/api/contact', require('./routes/corpo-page/contact'));
 
+// Rutas Backoffice
+app.use('/api/login', require('./routes/backoffice/auth'));
+app.use('/api/usuarios', require('./routes/backoffice/usuarios'));
 
 // cualquier otra ruta
-app.use('*', (req, res) => {
+/* app.use('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'public/index.html'));
-})
+}) */
 
 
 
