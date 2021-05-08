@@ -4,39 +4,39 @@ const getMenuFrontend = (rol = 'USER_ROLE') => {
             titulo: 'Principal',
             icono: 'pi pi-home',
             submenu: [
-                { titulo: 'Dashboard', url: '/dashboard' },
-                { titulo: 'Gráficos', url: '/graficos' }
+                { titulo: 'Dashboard', url: '/dashboard', icono: 'pi pi-info-circle' },
+                { titulo: 'Gráficos', url: '/graficos', icono: 'pi pi-chart-bar', }
             ]
         },
         {
             titulo: 'Gestión de productos',
-            icono: 'pi pi-folder-open',
+            icono: 'pi pi-folder',
             submenu: [
-                { titulo: 'Productos', url: '/productos' },
-                { titulo: 'Categorías', url: '/categorias' },
-                { titulo: 'Subcategorias', url: '/subcategorias' },
+                { titulo: 'Productos', url: '/productos', icono: 'pi pi-folder-open' },
+                { titulo: 'Categorías', url: '/categorias', icono: 'pi pi-caret-up' },
+                { titulo: 'Subcategorias', url: '/subcategorias', icono: 'pi pi-caret-down' },
             ]
         },
         {
             titulo: 'Gestión de logística',
-            icono: 'pi pi-send',
+            icono: 'pi pi-list',
             submenu: [
-                { titulo: 'Envíos de mercancía', url: '/envio-mercancia' },
-                { titulo: 'Recepciones de mercancía', url: '/recepcion-mercancia' },
+                { titulo: 'Envíos de mercancía', url: '/envio-mercancia', icono: 'pi pi-send', },
+                { titulo: 'Recepciones de mercancía', url: '/recepcion-mercancia', icono: 'pi pi-directions-alt', },
             ]
         },
         {
             titulo: 'Clientes y Proveedores',
             icono: 'pi pi-phone',
             submenu: [
-                { titulo: 'Listado de Clientes', url: '/clientes' },
-                { titulo: 'Listado de Proveedores', url: '/proveedores' },
+                { titulo: 'Listado de Clientes', url: '/clientes', icono: 'pi pi-id-card' },
+                { titulo: 'Listado de Proveedores', url: '/proveedores', icono: 'pi pi-briefcase' },
             ]
         }
     ];
 
     if (rol === 'ADMIN_ROLE') {
-        menu[0].submenu.unshift({ titulo: 'Usuarios', url: '/usuarios' });
+        menu[0].submenu.unshift({ titulo: 'Usuarios', url: '/usuarios', icono: 'pi pi-users' });
     }
 
     return menu;
