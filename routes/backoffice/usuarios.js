@@ -5,8 +5,8 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../../middlewares/validar-campos');
 
-const { getUsuarios, crearUsuario, actualizarUsuario, borrarUsuario } = require('../../controllers/backoffice/usuarios');
-const { validarJWT, validarADMIN_ROLE, validarADMIN_ROLE_o_MismoUsuario } = require('../../middlewares/validar-jwt');
+const { getUsuarios, crearUsuario, actualizarUsuario, borrarUsuario, borrarUsuariosSeleccionados } = require('../../controllers/backoffice/usuarios');
+const { validarJWT, validarMismoUsuario } = require('../../middlewares/validar-jwt');
 
 
 const router = Router();
@@ -24,10 +24,9 @@ router.post('/',
     crearUsuario
 );
 
-router.put('/:id',
+router.put('/:uid',
     [
         validarJWT,
-        validarADMIN_ROLE_o_MismoUsuario,
         check('nombre', 'El nombre es obligatorio').not().isEmpty(),
         check('nick', 'El nick es obligatorio').not().isEmpty(),
         check('role', 'El role es obligatorio').not().isEmpty(),
@@ -36,11 +35,17 @@ router.put('/:id',
     actualizarUsuario
 );
 
-router.delete('/:id',
+router.delete('/:uid',
     validarJWT,
-    validarADMIN_ROLE,
-    borrarUsuario
+    borrarUsuario,
+    validarMismoUsuario
 );
+
+router.post('/deleteSelected',
+    validarJWT,
+    borrarUsuariosSeleccionados,
+    validarMismoUsuario
+)
 
 
 

@@ -30,10 +30,9 @@ const validarJWT = (req, res, next) => {
 };
 
 const validarADMIN_ROLE = async (req, res, next) => {
-    const uid = req.uid;
-    const id = req.params.id;
+    const id = req.params.uid;
     try {
-        const usuarioDB = await Usuario.findById(uid);
+        const usuarioDB = await Usuario.findById(id);
 
         if (!usuarioDB) {
             return res.status(404).json({
@@ -60,7 +59,7 @@ const validarADMIN_ROLE = async (req, res, next) => {
 };
 
 const validarADMIN_ROLE_o_MismoUsuario = async (req, res, next) => {
-    const id = req.params.id;
+    const id = req.params.uid;
     const uid = req.uid;
     try {
         const usuarioDB = await Usuario.findById(uid);
@@ -90,9 +89,39 @@ const validarADMIN_ROLE_o_MismoUsuario = async (req, res, next) => {
     }
 };
 
+const validarMismoUsuario = async (req, res, next) => {
+    const id = req.params.uid;
+    try {
+        const usuarioDB = await Usuario.findById(uid);
+
+        if (!usuarioDB) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'El usuario no existe'
+            });
+        }
+
+        if (uid === id) {
+            next();
+        } else {
+            return res.status(403).json({
+                ok: false,
+                msg: 'No puede borrarse a sí mismo.'
+            });
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        });
+    }
+};
 
 module.exports = {
     validarJWT,
     validarADMIN_ROLE,
-    validarADMIN_ROLE_o_MismoUsuario
+    validarADMIN_ROLE_o_MismoUsuario,
+    validarMismoUsuario
 }

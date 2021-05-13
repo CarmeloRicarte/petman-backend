@@ -7,14 +7,9 @@ const { generarJWT } = require('../../helpers/jwt');
 
 const getUsuarios = async (req, res) => {
 
-    const desde = Number(req.query.desde) || 0;
-
     const [usuarios, total] = await Promise.all([
         Usuario
-            .find({}, 'nombre nick role img')
-            .skip(desde)
-            .limit(5),
-
+            .find({}, 'nombre nick role img'),
         Usuario.countDocuments()
     ]);
 
@@ -77,7 +72,7 @@ const crearUsuario = async (req, res = response) => {
 
 const actualizarUsuario = async (req, res = response) => {
 
-    const uid = req.params.id;
+    const uid = req.params.uid;
 
 
     try {
@@ -92,7 +87,7 @@ const actualizarUsuario = async (req, res = response) => {
         }
 
         // Actualizaciones
-        const { password, nick, ...campos } = req.body;
+        const { nombre, nick, ...campos } = req.body;
 
         if (usuarioDB.nick !== nick) {
 
@@ -128,7 +123,7 @@ const actualizarUsuario = async (req, res = response) => {
 
 const borrarUsuario = async (req, res = response) => {
 
-    const uid = req.params.id;
+    const uid = req.params.uid;
 
     try {
 
@@ -158,13 +153,40 @@ const borrarUsuario = async (req, res = response) => {
         });
 
     }
+}
 
+const borrarUsuariosSeleccionados = async (req, res = response) => {
+    try {
+        // sacamos un array con solo los ids de los usuarios a borrar
+        let usuariosBorrar = req.body.map((usuario) => {
+            return usuario.uid;
+        });
 
+        // filtramos el borrados por id, que comprueba en el array de usuarios a borrar
+        await Usuario.deleteMany(
+            {
+                _id: { $in: usuariosBorrar }
+            }
+        )
+
+        res.json({
+            ok: true,
+            msg: 'Usuarios eliminados'
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al borrar los usuarios'
+        });
+    }
 }
 
 module.exports = {
     getUsuarios,
     crearUsuario,
     actualizarUsuario,
-    borrarUsuario
+    borrarUsuario,
+    borrarUsuariosSeleccionados
 }
