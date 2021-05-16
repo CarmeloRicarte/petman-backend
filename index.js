@@ -33,6 +33,9 @@ app.use('/api/contact', require('./routes/corpo-page/contact'));
 // Rutas Backoffice
 app.use('/api/login', require('./routes/backoffice/auth'));
 app.use('/api/usuarios', require('./routes/backoffice/usuarios'));
+app.use('/api/clientes', require('./routes/backoffice/clientes'));
+app.use('/api/proveedores', require('./routes/backoffice/proveedores'));
+
 
 // cualquier otra ruta
 /* app.use('*', (req, res) => {
