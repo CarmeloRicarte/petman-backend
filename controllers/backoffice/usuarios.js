@@ -87,7 +87,11 @@ const actualizarUsuario = async (req, res = response) => {
         }
 
         // Actualizaciones
-        const { nombre, nick, ...campos } = req.body;
+        const cambiosUsuario = {
+            ...req.body
+        }
+
+        const nick = cambiosUsuario.nick;
 
         if (usuarioDB.nick !== nick) {
 
@@ -99,10 +103,10 @@ const actualizarUsuario = async (req, res = response) => {
                 });
             }
         }
-        campos.nick = nick;
 
 
-        const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, { new: true });
+
+        const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, cambiosUsuario, { new: true });
 
         res.json({
             ok: true,
