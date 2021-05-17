@@ -91,7 +91,7 @@ const actualizarProveedor = async (req, res = response) => {
 
         res.json({
             ok: true,
-            medico: proveedorActualizado
+            proveedor: proveedorActualizado
         });
 
     } catch (error) {
