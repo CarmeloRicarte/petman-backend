@@ -25,12 +25,10 @@ const ClienteSchema = Schema({
         unique: true
     },
     email: {
-        type: String,
-        unique: true
+        type: String
     },
     dni: {
-        type: String,
-        unique: true
+        type: String
     }
 });
 

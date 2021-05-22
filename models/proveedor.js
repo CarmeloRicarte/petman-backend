@@ -30,12 +30,10 @@ const ProveedorSchema = Schema({
         unique: true
     },
     email: {
-        type: String,
-        unique: true
+        type: String
     },
     web: {
-        type: String,
-        unique: true
+        type: String
     }
 });
 
