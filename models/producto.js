@@ -22,10 +22,14 @@ const ProductoSchema = Schema({
     required: true,
   },
   precio: {
-    type: String,
+    type: Number,
     required: true,
   },
   cantidad: {
+    type: Number,
+    required: true,
+  },
+  peso: {
     type: Number,
     required: true,
   },
