@@ -96,6 +96,78 @@ const actualizarProducto = async (req, res = response) => {
   }
 };
 
+const actualizarCantidadProducto = async (req, res = response) => {
+  try {
+    const productoActualizar = req.body;
+    const id = req.params.uid;
+    const producto = await Producto.findById(id);
+
+    if (!producto) {
+      return res.status(404).json({
+        ok: true,
+        msg: "Producto no encontrado por id",
+      });
+    }
+
+    const productoCantidadActualizar = parseInt(productoActualizar.cantidad);
+
+    const cantidadProductoActualizado = await Producto.findByIdAndUpdate(
+      id,
+      {
+        cantidad: producto.get("cantidad") + productoCantidadActualizar,
+      },
+      { new: true }
+    );
+
+    res.json({
+      ok: true,
+      cantidadProductoActualizado,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error al actualizar la cantidad del producto",
+    });
+  }
+};
+
+const actualizarPrecioProducto = async (req, res = response) => {
+  try {
+    const productoActualizar = req.body;
+    const id = req.params.uid;
+    const producto = await Producto.findById(id);
+
+    if (!producto) {
+      return res.status(404).json({
+        ok: true,
+        msg: "Producto no encontrado por id",
+      });
+    }
+
+    const productoPrecioActualizar = parseInt(productoActualizar.precio);
+
+    const productoPrecioActualizado = await Producto.findByIdAndUpdate(
+      id,
+      {
+        precio: productoPrecioActualizar,
+      },
+      { new: true }
+    );
+
+    res.json({
+      ok: true,
+      productoPrecioActualizado,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error al actualizar el precio del producto",
+    });
+  }
+};
+
 const borrarProducto = async (req, res = response) => {
   const id = req.params.uid;
 
@@ -154,6 +226,8 @@ module.exports = {
   getProductoById,
   crearProducto,
   actualizarProducto,
+  actualizarCantidadProducto,
+  actualizarPrecioProducto,
   borrarProducto,
   borrarProductosSeleccionados,
 };

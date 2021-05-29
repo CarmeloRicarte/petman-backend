@@ -10,6 +10,8 @@ const {
   getProductoById,
   crearProducto,
   actualizarProducto,
+  actualizarCantidadProducto,
+  actualizarPrecioProducto,
   borrarProducto,
   borrarProductosSeleccionados,
 } = require("../../controllers/backoffice/productos");
@@ -57,11 +59,16 @@ router.put(
     check("precio", "El precio debe tener el formato 0.00").isFloat(),
     check("cantidad", "La cantidad es obligatoria").not().isEmpty(),
     check("cantidad", "La cantidad debe ser un número").isNumeric(),
+    check("peso", "El peso es obligatorio").not().isEmpty(),
+    check("peso", "El peso debe ser un número").isNumeric(),
     check("unidadMedida", "La unidad de medida es obligatoria").not().isEmpty(),
     validarCampos,
   ],
   actualizarProducto
 );
+
+router.put("/:uid/updateCantidad", validarJWT, actualizarCantidadProducto);
+router.put("/:uid/updatePrecio", validarJWT, actualizarPrecioProducto);
 
 router.delete("/:uid", validarJWT, borrarProducto);
 
