@@ -100,6 +100,7 @@ const actualizarCantidadProducto = async (req, res = response) => {
   try {
     const productoActualizar = req.body;
     const id = req.params.uid;
+    const from = req.params.from;
     const producto = await Producto.findById(id);
 
     if (!producto) {
@@ -110,14 +111,34 @@ const actualizarCantidadProducto = async (req, res = response) => {
     }
 
     const productoCantidadActualizar = parseInt(productoActualizar.cantidad);
-
-    const cantidadProductoActualizado = await Producto.findByIdAndUpdate(
-      id,
-      {
-        cantidad: producto.get("cantidad") + productoCantidadActualizar,
-      },
-      { new: true }
-    );
+    let cantidadProductoActualizado;
+    if (from === "envios") {
+      if (producto.get("cantidad") !== 0) {
+        cantidadProductoActualizado = await Producto.findByIdAndUpdate(
+          id,
+          {
+            cantidad: producto.get("cantidad") - productoCantidadActualizar,
+          },
+          { new: true }
+        );
+      } else {
+        cantidadProductoActualizado = await Producto.findByIdAndUpdate(
+          id,
+          {
+            cantidad: 0,
+          },
+          { new: true }
+        );
+      }
+    } else {
+      cantidadProductoActualizado = await Producto.findByIdAndUpdate(
+        id,
+        {
+          cantidad: producto.get("cantidad") + productoCantidadActualizar,
+        },
+        { new: true }
+      );
+    }
 
     res.json({
       ok: true,
