@@ -110,14 +110,13 @@ const actualizarCantidadProducto = async (req, res = response) => {
       });
     }
 
-    const productoCantidadActualizar = parseInt(productoActualizar.cantidad);
     let cantidadProductoActualizado;
     if (from === "envios") {
       if (producto.get("cantidad") !== 0) {
         cantidadProductoActualizado = await Producto.findByIdAndUpdate(
           id,
           {
-            cantidad: producto.get("cantidad") - productoCantidadActualizar,
+            cantidad: producto.get("cantidad") - productoActualizar.cantidad,
           },
           { new: true }
         );
@@ -134,7 +133,7 @@ const actualizarCantidadProducto = async (req, res = response) => {
       cantidadProductoActualizado = await Producto.findByIdAndUpdate(
         id,
         {
-          cantidad: producto.get("cantidad") + productoCantidadActualizar,
+          cantidad: producto.get("cantidad") + productoActualizar.cantidad,
         },
         { new: true }
       );
@@ -166,12 +165,10 @@ const actualizarPrecioProducto = async (req, res = response) => {
       });
     }
 
-    const productoPrecioActualizar = parseInt(productoActualizar.precio);
-
     const productoPrecioActualizado = await Producto.findByIdAndUpdate(
       id,
       {
-        precio: productoPrecioActualizar,
+        precio: productoActualizar.precio,
       },
       { new: true }
     );
