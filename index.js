@@ -41,6 +41,7 @@ app.use("/api/categorias", require("./routes/backoffice/categorias"));
 app.use("/api/subcategorias", require("./routes/backoffice/subcategorias"));
 app.use("/api/productos", require("./routes/backoffice/productos"));
 app.use("/api/recepciones", require("./routes/backoffice/recepciones"));
+app.use("/api/envios", require("./routes/backoffice/envios"));
 
 // cualquier otra ruta
 /* app.use('*', (req, res) => {
