@@ -67,7 +67,11 @@ router.put(
   actualizarProducto
 );
 
-router.put("/:uid/updateCantidad", validarJWT, actualizarCantidadProducto);
+router.put(
+  "/:uid/:from/updateCantidad",
+  validarJWT,
+  actualizarCantidadProducto
+);
 router.put("/:uid/updatePrecio", validarJWT, actualizarPrecioProducto);
 
 router.delete("/:uid", validarJWT, borrarProducto);
