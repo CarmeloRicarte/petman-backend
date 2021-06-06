@@ -126,8 +126,8 @@ const borrarEnvio = async (req, res = response) => {
 const borrarEnviosSeleccionados = async (req, res = response) => {
   try {
     // sacamos un array con solo los ids de los envios a borrar
-    let enviosBorrar = req.body.map((producto) => {
-      return producto.uid;
+    let enviosBorrar = req.body.map((envio) => {
+      return envio.uid;
     });
 
     // filtramos borrados por id, que comprueba en el array de los envios a borrar

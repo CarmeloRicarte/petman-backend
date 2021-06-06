@@ -130,8 +130,8 @@ const borrarRecepcion = async (req, res = response) => {
 const borrarRecepcionesSeleccionados = async (req, res = response) => {
   try {
     // sacamos un array con solo los ids de las recepciones a borrar
-    let recepcionesBorrar = req.body.map((producto) => {
-      return producto.uid;
+    let recepcionesBorrar = req.body.map((recepcion) => {
+      return recepcion.uid;
     });
 
     // filtramos borrados por id, que comprueba en el array de las recepciones a borrar
