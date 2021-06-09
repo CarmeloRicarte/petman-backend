@@ -22,6 +22,27 @@ const getProductos = async (req, res = response) => {
     });
   }
 };
+
+const getProductosConStock = async (req, res = response) => {
+  try {
+    const [productos, total] = await Promise.all([
+      Producto.find({ cantidad: { $gt: 0 } }),
+    ]);
+
+    res.json({
+      ok: true,
+      productos,
+      total,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({
+      ok: false,
+      msg: "No se han encontrado productos con stock",
+    });
+  }
+};
+
 const getProductoById = async (req, res = response) => {
   const id = req.params.uid;
   try {
@@ -111,7 +132,7 @@ const actualizarCantidadProducto = async (req, res = response) => {
     }
 
     let cantidadProductoActualizado;
-    if (from === "envios") {
+    if (from === "envios" || from === "ventas") {
       if (producto.get("cantidad") !== 0) {
         cantidadProductoActualizado = await Producto.findByIdAndUpdate(
           id,
@@ -241,6 +262,7 @@ const borrarProductosSeleccionados = async (req, res = response) => {
 
 module.exports = {
   getProductos,
+  getProductosConStock,
   getProductoById,
   crearProducto,
   actualizarProducto,

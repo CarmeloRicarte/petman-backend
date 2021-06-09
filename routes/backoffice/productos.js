@@ -7,6 +7,7 @@ const { validarCampos } = require("../../middlewares/validar-campos");
 
 const {
   getProductos,
+  getProductosConStock,
   getProductoById,
   crearProducto,
   actualizarProducto,
@@ -20,6 +21,7 @@ const { validarJWT } = require("../../middlewares/validar-jwt");
 const router = Router();
 
 router.get("/", validarJWT, getProductos);
+router.get("/conStock", validarJWT, getProductosConStock);
 
 router.get("/:uid", validarJWT, getProductoById);
 
