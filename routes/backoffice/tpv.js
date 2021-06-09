@@ -25,6 +25,7 @@ router.post(
   [
     check("cliente", "El id del cliente debe de ser válido").isMongoId(),
     check("productos", "Los productos son obligatorios").not().isEmpty(),
+    check("formaPago", "La forma de pago es obligatoria").notEmpty(),
     validarCampos,
   ],
   crearVenta

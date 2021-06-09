@@ -14,6 +14,9 @@ const VentaSchema = Schema({
   importeTotal: {
     type: Number,
   },
+  formaPago: {
+    type: String,
+  },
   fechaVenta: {
     type: Date,
   },
