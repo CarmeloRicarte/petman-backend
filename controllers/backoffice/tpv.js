@@ -55,7 +55,7 @@ const getProductosMasVendidos = async (req, res = response) => {
     allProductos.sort((a, b) => (a.nombre > b.nombre ? 1 : -1));
 
     for (let i = 0; i < allProductos.length; i++) {
-      if (allProductos[i + 1].nombre === allProductos[i].nombre) {
+      if (allProductos[i + 1]?.nombre === allProductos[i].nombre) {
         allProductos[i].cantidad += allProductos[i + 1].cantidad;
         productosMasVendidos.push(allProductos[i]);
         allProductos.splice(i + 1, 1);
@@ -102,7 +102,7 @@ const getProductosMenosVendidos = async (req, res = response) => {
 
     // quitamos duplicados y sumamos cantidad
     for (let i = 0; i < allProductos.length; i++) {
-      if (allProductos[i + 1].nombre === allProductos[i].nombre) {
+      if (allProductos[i + 1]?.nombre === allProductos[i].nombre) {
         allProductos[i].cantidad += allProductos[i + 1].cantidad;
         productosMenosVendidos.push(allProductos[i]);
         allProductos.splice(i + 1, 1);

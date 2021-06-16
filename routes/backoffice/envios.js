@@ -8,6 +8,8 @@ const { validarCampos } = require("../../middlewares/validar-campos");
 const {
   getEnvios,
   getEnvioById,
+  getProductosMasVendidosEnEnvios,
+  getProductosMenosVendidosEnEnvios,
   crearEnvio,
   actualizarEnvio,
   borrarEnvio,
@@ -18,6 +20,12 @@ const { validarJWT } = require("../../middlewares/validar-jwt");
 const router = Router();
 
 router.get("/", validarJWT, getEnvios);
+router.get("/masVendidosEnvios", validarJWT, getProductosMasVendidosEnEnvios);
+router.get(
+  "/menosVendidosEnvios",
+  validarJWT,
+  getProductosMenosVendidosEnEnvios
+);
 
 router.get("/:uid", validarJWT, getEnvioById);
 

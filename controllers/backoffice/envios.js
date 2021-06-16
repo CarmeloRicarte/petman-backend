@@ -21,6 +21,103 @@ const getEnvios = async (req, res = response) => {
     });
   }
 };
+
+const getProductosMasVendidosEnEnvios = async (req, res = response) => {
+  try {
+    const productosVentasEnvios = await envioMercancia.find(
+      {},
+      { productos: 1, _id: 0 }
+    );
+    const allProductos = [];
+    const productosMasVendidosEnvios = [];
+    for await (const productosEnvio of productosVentasEnvios) {
+      for (let i = 0; i < productosEnvio.get("productos").length; i++) {
+        allProductos.push({
+          nombre: productosEnvio.get("productos")[i].nombre,
+          cantidad: productosEnvio.get("productos")[i].cantidad,
+        });
+      }
+    }
+    allProductos.sort((a, b) => (a.nombre > b.nombre ? 1 : -1));
+
+    for (let i = 0; i < allProductos.length; i++) {
+      if (allProductos[i + 1]?.nombre === allProductos[i].nombre) {
+        allProductos[i].cantidad += allProductos[i + 1].cantidad;
+        productosMasVendidosEnvios.push(allProductos[i]);
+        allProductos.splice(i + 1, 1);
+      } else {
+        productosMasVendidosEnvios.push(allProductos[i]);
+      }
+    }
+
+    productosMasVendidosEnvios.sort((a, b) =>
+      a.cantidad < b.cantidad ? 1 : -1
+    );
+
+    if (productosMasVendidosEnvios.length > 3)
+      productosMasVendidosEnvios.length = 3;
+
+    res.json({
+      ok: true,
+      productosMasVendidosEnvios,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({
+      ok: false,
+      msg: "No se han encontrado productos más vendidos en envíos",
+    });
+  }
+};
+
+const getProductosMenosVendidosEnEnvios = async (req, res = response) => {
+  try {
+    const productosVentasEnvios = await envioMercancia.find(
+      {},
+      { productos: 1, _id: 0 }
+    );
+    const allProductos = [];
+    const productosMenosVendidosEnvios = [];
+    for await (const productosEnvio of productosVentasEnvios) {
+      for (let i = 0; i < productosEnvio.get("productos").length; i++) {
+        allProductos.push({
+          nombre: productosEnvio.get("productos")[i].nombre,
+          cantidad: productosEnvio.get("productos")[i].cantidad,
+        });
+      }
+    }
+    allProductos.sort((a, b) => (a.nombre > b.nombre ? 1 : -1));
+
+    for (let i = 0; i < allProductos.length; i++) {
+      if (allProductos[i + 1]?.nombre === allProductos[i].nombre) {
+        allProductos[i].cantidad += allProductos[i + 1].cantidad;
+        productosMenosVendidosEnvios.push(allProductos[i]);
+        allProductos.splice(i + 1, 1);
+      } else {
+        productosMenosVendidosEnvios.push(allProductos[i]);
+      }
+    }
+
+    productosMenosVendidosEnvios.sort((a, b) =>
+      a.cantidad > b.cantidad ? 1 : -1
+    );
+
+    if (productosMenosVendidosEnvios.length > 3)
+      productosMenosVendidosEnvios.length = 3;
+
+    res.json({
+      ok: true,
+      productosMenosVendidosEnvios,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({
+      ok: false,
+      msg: "No se han encontrado productos menos vendidos en envíos",
+    });
+  }
+};
+
 const getEnvioById = async (req, res = response) => {
   const id = req.params.uid;
   try {
@@ -151,6 +248,8 @@ const borrarEnviosSeleccionados = async (req, res = response) => {
 module.exports = {
   getEnvios,
   getEnvioById,
+  getProductosMasVendidosEnEnvios,
+  getProductosMenosVendidosEnEnvios,
   crearEnvio,
   actualizarEnvio,
   borrarEnvio,
