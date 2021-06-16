@@ -22,6 +22,97 @@ const getRecepciones = async (req, res = response) => {
     });
   }
 };
+
+const getProductosMasComprados = async (req, res = response) => {
+  try {
+    const productosRecepciones = await RecepcionMercancia.find(
+      {},
+      { productos: 1, _id: 0 }
+    );
+    const allProductos = [];
+    const productosMasComprados = [];
+    for await (const productosRecepcion of productosRecepciones) {
+      for (let i = 0; i < productosRecepcion.get("productos").length; i++) {
+        allProductos.push({
+          nombre: productosRecepcion.get("productos")[i].nombre,
+          cantidad: productosRecepcion.get("productos")[i].cantidad,
+        });
+      }
+    }
+    allProductos.sort((a, b) => (a.nombre > b.nombre ? 1 : -1));
+
+    for (let i = 0; i < allProductos.length; i++) {
+      if (allProductos[i + 1]?.nombre === allProductos[i].nombre) {
+        allProductos[i].cantidad += allProductos[i + 1].cantidad;
+        productosMasComprados.push(allProductos[i]);
+        allProductos.splice(i + 1, 1);
+      } else {
+        productosMasComprados.push(allProductos[i]);
+      }
+    }
+
+    productosMasComprados.sort((a, b) => (a.cantidad < b.cantidad ? 1 : -1));
+
+    if (productosMasComprados.length > 3) productosMasComprados.length = 3;
+
+    res.json({
+      ok: true,
+      productosMasComprados,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({
+      ok: false,
+      msg: "No se han encontrado productos más comprados",
+    });
+  }
+};
+
+const getProductosMenosComprados = async (req, res = response) => {
+  try {
+    const productosRecepciones = await RecepcionMercancia.find(
+      {},
+      { productos: 1, _id: 0 }
+    );
+    const allProductos = [];
+    const productosMenosComprados = [];
+    for await (const productosRecepcion of productosRecepciones) {
+      for (let i = 0; i < productosRecepcion.get("productos").length; i++) {
+        allProductos.push({
+          nombre: productosRecepcion.get("productos")[i].nombre,
+          cantidad: productosRecepcion.get("productos")[i].cantidad,
+        });
+      }
+    }
+    allProductos.sort((a, b) => (a.nombre > b.nombre ? 1 : -1));
+
+    for (let i = 0; i < allProductos.length; i++) {
+      if (allProductos[i + 1]?.nombre === allProductos[i].nombre) {
+        allProductos[i].cantidad += allProductos[i + 1].cantidad;
+        productosMenosComprados.push(allProductos[i]);
+        allProductos.splice(i + 1, 1);
+      } else {
+        productosMenosComprados.push(allProductos[i]);
+      }
+    }
+
+    productosMenosComprados.sort((a, b) => (a.cantidad > b.cantidad ? 1 : -1));
+
+    if (productosMenosComprados.length > 3) productosMenosComprados.length = 3;
+
+    res.json({
+      ok: true,
+      productosMenosComprados,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({
+      ok: false,
+      msg: "No se han encontrado productos menos comprados",
+    });
+  }
+};
+
 const getRecepcionById = async (req, res = response) => {
   const id = req.params.uid;
   try {
@@ -62,7 +153,6 @@ const crearRecepcion = async (req, res = response) => {
 
 const actualizarRecepcion = async (req, res = response) => {
   const id = req.params.uid;
-  // const productos = req.body.productos;
 
   try {
     const recepcion = await RecepcionMercancia.findById(id);
@@ -77,8 +167,6 @@ const actualizarRecepcion = async (req, res = response) => {
     const cambiosRecepcion = {
       ...req.body,
     };
-
-    // actualizarProductos(productos);
 
     const recepcionActualizada = await RecepcionMercancia.findByIdAndUpdate(
       id,
@@ -155,6 +243,8 @@ const borrarRecepcionesSeleccionados = async (req, res = response) => {
 module.exports = {
   getRecepciones,
   getRecepcionById,
+  getProductosMasComprados,
+  getProductosMenosComprados,
   crearRecepcion,
   actualizarRecepcion,
   borrarRecepcion,
