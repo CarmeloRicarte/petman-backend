@@ -8,6 +8,8 @@ const { validarCampos } = require("../../middlewares/validar-campos");
 const {
   getVentas,
   getVentaById,
+  getProductosMasVendidos,
+  getProductosMenosVendidos,
   crearVenta,
   borrarVenta,
   borrarVentasSeleccionadas,
@@ -17,7 +19,8 @@ const { validarJWT } = require("../../middlewares/validar-jwt");
 const router = Router();
 
 router.get("/", validarJWT, getVentas);
-
+router.get("/masVendidos", validarJWT, getProductosMasVendidos);
+router.get("/menosVendidos", validarJWT, getProductosMenosVendidos);
 router.get("/:uid", validarJWT, getVentaById);
 
 router.post(
