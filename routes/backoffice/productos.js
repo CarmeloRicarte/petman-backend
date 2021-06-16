@@ -22,7 +22,6 @@ const router = Router();
 
 router.get("/", validarJWT, getProductos);
 router.get("/conStock", validarJWT, getProductosConStock);
-
 router.get("/:uid", validarJWT, getProductoById);
 
 router.post(

@@ -25,14 +25,11 @@ const getProductos = async (req, res = response) => {
 
 const getProductosConStock = async (req, res = response) => {
   try {
-    const [productos, total] = await Promise.all([
-      Producto.find({ cantidad: { $gt: 0 } }),
-    ]);
+    const productos = await Producto.find({ cantidad: { $gt: 0 } });
 
     res.json({
       ok: true,
       productos,
-      total,
     });
   } catch (error) {
     console.error(error);
