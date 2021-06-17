@@ -45,9 +45,9 @@ app.use("/api/envios", require("./routes/backoffice/envios"));
 app.use("/api/tpv", require("./routes/backoffice/tpv"));
 
 // cualquier otra ruta
-/* app.use('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public/index.html'));
-}) */
+app.use("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public/index.html"));
+});
 
 app.listen(process.env.PORT, () => {
   console.log("Servidor corriendo en puerto " + process.env.PORT);
