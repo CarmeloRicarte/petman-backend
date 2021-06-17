@@ -1,0 +1,83 @@
+{
+  "home": {
+    "title": "Piensos Sergio Rocamora, lo mejor para tus animales y tu campo",
+    "description": "Visítanos para poder comprar los mejores productos al mejor precio para el cuidado y alimentación de tus animales y plantaciones agrícolas"
+  },
+  "about": {
+    "description": "Trabajamos con el objetivo de ofrecer el mejor asesoramiento técnico a cada uno de nuestros clientes.",
+    "experience": {
+      "paragraph": "Disponemos de una experiencia contrastada en la venta de abonos, piensos, cereales y forrajes.",
+      "title": "40 años de experiencia"
+    },
+    "title": "Empresa familiar dedicada a la venta de piensos y abonos"
+  },
+  "contact": {
+    "address": {
+      "city": "03340 Albatera, Alicante",
+      "street": "Calle Valencia, 8",
+      "title": "Dirección"
+    },
+    "form": {
+      "asunto": "Asunto",
+      "contacta-con-nosotros": "Contacta con nosotros",
+      "description": "Estamos encantados de escucharte. Envíanos un mensaje y responderemos lo antes posible.",
+      "dudas": "Alguna duda o sugerencia?",
+      "email": "Email",
+      "enviarMensaje": "Enviar Mensaje",
+      "mensaje": "Mensaje",
+      "nombre": "Nombre",
+      "telefono": "Teléfono",
+      "submitOk": "Mensaje enviado correctamente. Gracias por contactar con nosotros. Te responderemos lo antes posible.",
+      "submitFailed": "Error en el envío del mensaje. Por favor, inténtelo más tarde.",
+      "validators": {
+        "required": "{{ value }} es obligatorio",
+        "notValid": "{{ value }} no es válido"
+      }
+    },
+    "schedule": {
+      "lunes-viernes": "Lunes/Viernes 8:00-14:00, 16:30 - 20:30",
+      "sabados": "Sábados 8:00-14:00",
+      "title": "Horario"
+    }
+  },
+  "footer": {
+    "derechos": "Todos los derechos reservados",
+    "hechoPor": "Desarrollado por ",
+    "withLove": "con ❤️"
+  },
+  "header": {
+    "about": "Quiénes Somos",
+    "contact": "Contacto",
+    "employeeAccess": "Acceso Empleados",
+    "home": "Inicio",
+    "services": "Servicios",
+    "reviews": "Reseñas"
+  },
+  "reviews": {
+    "valoraciones": {
+      "span": "Opiniones de nuestros clientes",
+      "title": "Reseñas publicadas en Google Maps",
+      "valorar": "Valóranos",
+      "allReviews": "Ver todas las reseñas"
+    }
+  },
+  "services": {
+    "abonos": {
+      "description": "Disponemos de una amplia variedad de abonos para que tanto su jardín como su plantación agrícola estén en las mejores condiciones. Además, le asesoramos en la elección del tipo de abono necesario en base al árbol y época del año.",
+      "title": "Abonos y semillas"
+    },
+    "accesorios": {
+      "description": "Ofrecemos una extensa variedad de complementos para tus mascotas: comederos y bebederos, jaulas, champú, correas, etc.",
+      "title": "Accesorios"
+    },
+    "entrega": {
+      "description": "Tenemos servicio de reparto a domicilio. Consulte con nosotros previamente mediante llamada, email o nuestro formulario de contacto.",
+      "title": "Reparto a domicilio"
+    },
+    "piensos": {
+      "description": "Alimentación para animales domésticos y de granja como perros, gatos, pájaros, conejos, gallinas, etc.",
+      "title": "Piensos, cereales y forrajes"
+    },
+    "principalServices": "Nuestros Principales Servicios"
+  }
+}
